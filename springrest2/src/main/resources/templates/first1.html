@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.3.1207/styles/kendo.common.min.css" />
+  <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.3.1207/styles/kendo.blueopal.min.css" />
+  <script src="https://kendo.cdn.telerik.com/2021.3.1207/js/jquery.min.js"></script>
+  <script src="https://kendo.cdn.telerik.com/2021.3.1109/js/jquery.min.js"></script>
+  <script src="https://kendo.cdn.telerik.com/2021.3.1109/js/kendo.web.min.js"></script>
+  <script src="https://kendo.cdn.telerik.com/2021.3.1109/js/kendo.all.min.js"></script>
+
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      padding: 5px;
+      background-color: cyan;
+    }
+
+    .button {
+      padding: 10px;
+      margin: 20px;
+      font-size: 25px;
+    }
+
+    p {
+      color: balck;
+      margin: 5px;
+      cursor: pointer;
+    }
+
+    p:hover {
+      background: yellow;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <h1 style="font-size:5vw;">WELCOME TO COURSE!!!</h1>
+  <p style="font-size:3vw;">Courses : </p>
+  <p style="font-size:2vw;">This is our Course application,in that we organized multiple courses,
+    which is beneficial to the student!
+    this courses provide from basic to advance skill...
+    If you opted this course,it will increses your knowledge,
+    Please Guys,Pick one course,Make your Life!!!
+  </p>
+
+  <button id="hide">Hide</button>
+  <button id="show">Show</button>
+
+  <style>
+    body {
+      background-image: url('https://images.saymedia-content.com/.image/t_share/MTc4NzM1OTc4MzE0MzQzOTM1/how-to-create-cool-website-backgrounds-the-ultimate-guide.png');
+    }
+  div.dbl {
+      background: pink;
+      color: white;
+    }
+  </style>
+  <div class="container">
+    <button id="btnAdd" onclick="window.location.href='index.html'" class="button" style="font-size:1vw;"> COURSE
+      INFORMATION ! </button>
+
+  </div>
+  <span>Double Click,Get Details!</span>
+  <script>
+  $(function () {
+      $("button").kendoButton().css("background-color", "red");
+    });
+
+    $("p").click(function () {
+      $(this).slideUp();
+    });
+
+    var divdbl = $("div").first();
+    divdbl.dblclick(function () {
+      divdbl.toggleClass("dbl");
+    });
+
+  $(document).ready(function () {
+      $("#hide").click(function () {
+        $("p").hide();
+      });
+      $("#show").click(function () {
+        $("p").show();
+      });
+
+      $("button").click(function () {
+
+        $("#hide").fadeOut("5000");
+        $("#show").fadeOut("5000");
+      });
+
+    });
+  </script>
+</script>
+</body>
+</html>
