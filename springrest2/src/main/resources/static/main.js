@@ -1,16 +1,26 @@
 $(document).ready(function () {
-
 	$.ajax({
 		type: "GET",
 		url: "http://localhost:3333/courses",
 		success: function (response) {
+
 			console.log(response);
-			$('#grid').kendoGrid({
-
-
+			data = response;
+			var dataSource = new kendo.data.DataSource({
+				data: [
+					{ response }
+				]
+		});
+		$('#grid').kendoGrid({
 				filterable: true,
 				groupable: true,
-				height: 400,
+				_height: 400,
+				get height() {
+					return this._height;
+				},
+				set height(value) {
+					this._height = value;
+				},
 				scrollable: true,
 				pageable: true,
 				sortable: true,
@@ -54,6 +64,7 @@ $(document).ready(function () {
 							{
 								type: "number", editable: "true",
 							},
+							"title":{type:'string'},
 						}
 					}
 				},
@@ -62,13 +73,11 @@ $(document).ready(function () {
 					$('<input name="' + options.field + '"/>')
 						.appendTo(container)
 						.kendoDropDownList({
-							dataTextField: "title",
-							dataValueField: "id",
-							dataSource: [{ "id": 1, "title": "Java" }, { "id": 2, "title": "DS Using Java" }, { "id": 3, "title": "Python" }, { "id": 4, "title": "Angular" }]
+							dataSource: ["Python","Angular","Java","Javascript","Gofer"]
 						});
 				},
 				save: function (e) {
-					alert("saving");
+					alert("saving your fields");
 					console.log(e);
 					var data = e.model;
 					console.log(data);
@@ -76,7 +85,7 @@ $(document).ready(function () {
 					var postData = {};
 					postData.id = data.id;
 
-					postData.title = data.title.title;
+					postData.title = data.title;
 					postData.description = data.description;
 					postData.price = data.price;
 
@@ -89,44 +98,34 @@ $(document).ready(function () {
 
 						success: function (data) {
 							console.log(data);
-						//setDataSource : Sets the data source of the widget. The new dataSource will override the configurations and data of the old one.
-							var dataSource = new kendo.data.DataSource({
-								data: [
-								  {response }
-								]
-							  });
-							  var grid = $("#grid").data("kendoGrid");
-							  grid.setDataSource(dataSource);
-							  
 
-					//	$(".k-popup-edit-form k-window-content").data("kendoWindow").close();
-						$('#grid').data('kendoGrid').dataSource.read();
-						$('#grid').data('kendoGrid').refresh();
+
+							var grid = $("#grid").data("kendoGrid");
+							grid.setDataSource(dataSource);
+							location.reload(true);
+							$('#grid').data('kendoGrid').refresh();
+							preventCloseOnSave = false;
+
 
 						},
-
-
 					});
 				},
-
 				remove: function (e) {
 					$.ajax({
 						url: "http://localhost:3333/courses/" + e.model.id,
 						type: "DELETE",
 						success: function () {
 							alert("deleted!!!");
-							
-
-
+							$('#grid').data('kendoGrid').refresh();
+							preventCloseOnSave = false;
 						},
 						error: function (error) {
 							alert(error);
-
-						}
+							$('#grid').data('kendoGrid').refresh();
+							preventCloseOnSave = false;
+					}
 					})
 				},
-
-
 			});
 		}
 	});
@@ -135,9 +134,7 @@ $(document).ready(function () {
 		$('<input name="' + options.field + '"/>')
 			.appendTo(container)
 			.kendoDropDownList({
-				dataTextField: "title",
-				dataValueField: "id",
-				dataSource: [{ "id": 1, title: "Java" }, { "id": 2, "title": "DS Using Java" }, { "id": 3, "title": "Python" }, { "id": 4, "title": "Angular" }]
+				dataSource: ["Python","Angular","Java","Javascript","Gofer"]
 			});
 	}
 });
@@ -146,3 +143,4 @@ $(document).ready(function () {
 
 
 
+						
